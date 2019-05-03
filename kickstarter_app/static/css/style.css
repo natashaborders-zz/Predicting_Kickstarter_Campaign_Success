@@ -1,0 +1,6 @@
+.jumbotron{
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/images/iris.jpg');
+  background-size: cover;
+  margin-bottom:0;
+  color: white;
+}

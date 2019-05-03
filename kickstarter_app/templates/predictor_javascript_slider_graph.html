@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>My Webpage</title>
+
+  <!-- include jQuery, so we have access to the $.post function -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <!-- include our own functions -->
+  <script src='static/js/model.js'></script>
+  <script src='static/js/graph.js'></script>
+  <link rel='stylesheet' href='static/css/graph_style.css'/>
+
+</head>
+
+<body>
+  <div class="controls">
+    <br>
+    petal length = <span id='petal_length_value'>0</span> cm
+    <br>
+    <input type="range" min="0" max="5" step="0.1" value="0" id="petal_length" onchange="moveSlider()">
+
+    <br>
+    petal width = <span id='petal_width_value'>0</span> cm
+    <br>
+    <input type="range" min="0" max="5" step="0.1" value="0" id="petal_width" onchange="moveSlider()">
+
+    <br>
+    sepal length = <span id='sepal_length_value'>0</span> cm
+    <br>
+    <input type="range" min="0" max="5" step="0.1" value="0" id="sepal_length" onchange="moveSlider()">
+
+    <br>
+    sepal width = <span id='sepal_width_value'>0</span> cm
+    <br>
+    <input type="range" min="0" max="5" step="0.1" value="0" id="sepal_width" onchange="moveSlider()">
+  <div>
+
+  <div class="graph_div">
+    <div class="graph_element" id='versicolor'>Versicolor</div>
+    <div class="graph_element" id='virginica'>Virginica</div>
+    <div class="graph_element" id='setosa'>Setosa</div>
+  </div>
+  <!-- stores the most likely result -->
+  <div id='results'>
+  </div>
+
+  <!-- shows the list of all results -->
+  <div id='list_results'>
+  </div>
+
+</body>
+  <script>
+  function moveSlider(){
+    // Just update all the text for all the sliders
+    const ids = ['petal_width', 'petal_length', 'sepal_width', 'sepal_length'];
+    ids.forEach((id) => {
+      const value = $(`#${id}`).val();
+      $(`#${id}_value`).html(value);
+    });
+
+    // Finally, process the model
+    process();
+  }
+  </script>
+</html>
