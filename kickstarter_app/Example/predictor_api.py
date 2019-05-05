@@ -12,7 +12,7 @@ import numpy as np
 
 # lr_model is our simple logistic regression model
 # lr_model.feature_names are the four different iris measurements
-with open("lr.pkl", "rb") as f:
+with open("lr.pkl2", "rb") as f:
     lr_model = pickle.load(f)
 
 feature_names = lr_model.feature_names

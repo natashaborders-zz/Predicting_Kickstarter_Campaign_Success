@@ -9,13 +9,14 @@ about whether Flask is working. A short check is run at the bottom of the file.
 
 import pickle
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 
 # lr_model is our simple logistic regression model
 # lr_model.feature_names are the four different iris measurements
-with open("lr.pkl", "rb") as f:
-    lr_model = pickle.load(f)
+with open("finalized_xgBoost.sav", "rb") as f:
+    finalized_xgBoost = pickle.load(f)
 
-feature_names = lr_model.feature_names
+feature_names = xgBoost.feature_names
 
 def make_api_prediction(feature_dict):
     """
@@ -32,10 +33,14 @@ def make_api_prediction(feature_dict):
       most_likely_class_name: string (name of the most likely class)
       most_likely_class_prob: float (name of the most likely probability)
     """
-    x_input = [feature_dict[name] for name in lr_model.feature_names]
+    x_input = [feature_dict[name] for name in xgBoost.feature_names]
     x_input = [0 if val == '' else float(val) for val in x_input]
-
-    pred_probs = lr_model.predict_proba([x_input]).flat
+    
+    scaler = StandardScaler()
+    scaler.fit(X)
+    x_input_scaled = scaler.transform(x_input)
+    
+    pred_probs = lr_model.predict_proba([x_input_scaled]).flat
 
     probs = [{'name': lr_model.target_names[index], 'prob': pred_probs[index]}
              for index in np.argsort(pred_probs)[::-1]]
