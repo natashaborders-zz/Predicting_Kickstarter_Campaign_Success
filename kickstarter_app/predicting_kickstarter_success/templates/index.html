@@ -1,0 +1,108 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+
+
+function process(){
+
+  // we have really long feature names =(
+  feature = {
+    'goal': $('#goal').val(),
+    'staff_pick_True':  $('#staff_pick_True').val(),
+    'cam_length': $('#cam_length').val(),
+    'blurb_length':  $('#blurb_length').val(),
+    'country_US':  $('#country_US').val(),
+    'category_input':  $('#category_input').val()
+  }
+  console.log(feature)
+  // Call our API route /predict_api via the post method
+  // Our method returns a dictionary.
+  // If successful, pass the dictionary to the function "metis_success"
+  // If there is an error, pass the dictionary to the functoin "metis_error"
+  // Note: functions can have any name you want; to demonstrate this we put
+  //       metis_ at the beginning of each function.
+  $.post({
+    url: '/predict_api',
+    contentType: 'application/json',
+    data: JSON.stringify(feature),
+    success: result => metis_success(result),
+    error: result => metis_error(result)
+  })
+
+}
+/* Here "result" is the "dictionary" (javascript object)
+ * that our get_api_response function returned when we called
+ * the /predict_api function
+ *
+ * Here we select the "results" div and overwrite it
+ */
+function metis_success(result){
+
+console.log(result)
+  /*
+  $('#results').html(`The most likely class is ${result.most_likely_class_name}
+                      with probability ${100*result.most_likely_class_prob}%`);
+
+  const all_results = result.all_probs.map( (data) => `${data.name}: ${100*data.prob}`)
+  $('#list_results').html(all_results.join('%<br>') + '%');
+
+  // only included in predictor_javascript_slider_graph.html
+  // otherwise does nothing.
+  modifyDivs(result.all_probs);
+  */
+}
+
+function metis_error(result){
+  console.log(result);
+  alert("I don't know what you did");
+}
+</script>
+
+
+
+
+
+  <p>Let's predict the success of your Kickstarter campaign!</p>
+
+
+
+
+
+What is your campaign goal in USD?<br>
+      <input id="goal" name="goal" type="text"/><br>
+What is your campaign length in days?<br>
+            <input id="cam_length" name="cam_length" type="text"/><br>
+What is your campaign description length in words?<br>
+    <input id="blurb_length" name="blurb_length" type="text"/><br>
+Is this a staff pick?<br>
+    <select id="staff_pick_True" name="staff_pick_True"><br>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select><br>
+Is this campaign based in the US?<br>
+  <select id="country_US" name="country_US"><br>
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+  </select><br>
+Pick your category:<br>
+    <select id="category_input" name="category_input"><br>
+      <option value="main_category_comics">Comics</option>
+      <option value="main_category_crafts">Crafts</option>
+      <option value="main_category_dance">Dance</option>
+      <option value="main_category_design">Design</option>
+      <option value="main_category_fashion">Fashion</option>
+      <option value="main_category_film & video">Film & Video</option>
+      <option value="main_category_food">Food</option>
+      <option value="main_category_games">Games</option>
+      <option value="main_category_journalism">Journalism</option>
+      <option value="main_category_music">Music</option>
+      <option value="main_category_photography">Photography</option>
+      <option value="main_category_publishing">Publishing</option>
+      <option value="main_category_technology">Technology</option>
+      <option value="main_category_theater">Theater</option>
+      <option value="main_category_art">Art</option>
+    </select><br>
+    <input type="submit" value="Submit" method="get" onclick="process()">
+
+
+</html>

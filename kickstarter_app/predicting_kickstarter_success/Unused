@@ -1,18 +1,9 @@
-"""
-Note this file contains _NO_ flask functionality.
-Instead it makes a file that takes the input dictionary Flask gives us,
-and returns the desired result.
-
-This allows us to test if our modeling is working, without having to worry
-about whether Flask is working. A short check is run at the bottom of the file.
-"""
-
 import pickle
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 
-with open("finalized_logistic_regression_no_scale.sav", "rb") as f:
+with open("finalized_logistic_no_scale.sav", "rb") as f:
     logistic = pickle.load(f)
 
 feature_names = ['goal', 'staff_pick_True',
@@ -25,6 +16,7 @@ feature_names = ['goal', 'staff_pick_True',
        'main_category_theater']
 
 
+#xgBoost.feature_names
 
 def make_api_prediction(feature_dict):
     """
@@ -42,25 +34,32 @@ def make_api_prediction(feature_dict):
       most_likely_class_prob: float (name of the most likely probability)
     """
     x_input = [feature_dict[name] for name in feature_names]
+
+    print(x_input)
+
     x_input = [0 if val == '' else float(val) for val in x_input]
+    print(x_input)
+    empty_list=[]
+    empty_list.append(x_input)
+    ##print(x_input_reshaped)
 
-    pred_probs = logistic.predict([x_input])
+    #scaler = StandardScaler()
+    #scaler.fit(x_input_reshaped)
+    #x_input_scaled = scaler.transform(x_input_reshaped)
 
-   # probs = [{'name': logistic.target_names[index], 'prob': pred_probs[index]}
-             #for index in np.argsort(pred_probs)[::-1]]
+    #print(x_input_scaled)
 
-    response = int(pred_probs[0])
-    
-    #{
-        #'all_probs': probs,
-        #'most_likely_class_name': probs[0]['name'],
-        #'most_likely_class_prob': probs[0]['prob'],
-    #}
+    pred_outcome = xgBoost.predict(empty_list)
 
-    #return response
-        
+    response = []
+
+    for value in pred_outcome:
+        response.append(int(value))
+
+    print (response)
+
     #response = pred_outcome
-    
+
     #{
         #'all_probs': probs,
        # 'most_likely_class_name': probs[0]['name'],
