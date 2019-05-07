@@ -39,17 +39,17 @@ def get_api_response():
        'main_category_publishing', 'main_category_technology',
        'main_category_theater']
         input_list = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        print('made it this far')
+        #print('made it this far')
         category_input = feature_dictionary["category_input"]
         if category_input in category_list:
             print(category_list.index(category_input))
             input_list[category_list.index(category_input)] = 1
         i=0
-        print('worked so far')
+        #print('worked so far')
         for item in category_list:
             feature_dictionary[item]=input_list[i]
             i=i+1
-        print('worked')
+        #print('worked')
         print(feature_dictionary)
         response = make_api_prediction(feature_dictionary)
         #response = {"msg":"this is amazing"}
