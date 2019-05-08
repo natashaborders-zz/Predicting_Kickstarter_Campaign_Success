@@ -6,4 +6,5 @@
 .env
 *.pkl
 *.sqlite
+*.pptx
 
