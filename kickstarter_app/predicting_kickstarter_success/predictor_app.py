@@ -12,10 +12,6 @@ app = flask.Flask(__name__)
 # to the page http://127.0.0.1:5000/), return a simple
 # page that says the site is up!
 @app.route("/")
-def hello():
-    return "It's alive!!!"
-
-@app.route("/predict", methods=["GET"])
 def get_predict_page():
     "Returns the rendered page"
     # We can try other template pages as well.
@@ -68,7 +64,8 @@ def get_api_response():
 # We'll have a running web app!
 
 # For local development:
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
 
 # For public web serving:
 # app.run(host='0.0.0.0')

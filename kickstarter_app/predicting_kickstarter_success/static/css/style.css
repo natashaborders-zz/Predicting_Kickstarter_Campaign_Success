@@ -1,6 +1,10 @@
 .jumbotron{
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/images/Kickstarter-Logo-.jpg');
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://1vgls911io20eqjpr4422qw1-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/Kickstarter-Logo-.jpg');
   background-size: cover;
   margin-bottom:0;
   color: white;
+}
+{
+color: #FFFFFF;
+/*background-color:none !important;*/
 }
